@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+  svg { display: block; }
+  .nome { font-family: Poppins, sans-serif; font-weight: 800; font-size: 132px; letter-spacing: -4px; }
+  .slogan { font-family: Poppins, sans-serif; font-weight: 700; font-size: 29px; letter-spacing: 8.6px; }
+</style></head>
+<body>
+<svg id="logo" width="1000" height="300" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="azul" gradientUnits="userSpaceOnUse" x1="8" y1="14" x2="76" y2="106">
+      <stop offset="0" stop-color="#1f86f5"/><stop offset="1" stop-color="#0736a6"/>
+    </linearGradient>
+    <linearGradient id="verde" gradientUnits="userSpaceOnUse" x1="132" y1="14" x2="64" y2="106">
+      <stop offset="0" stop-color="#45d95e"/><stop offset="1" stop-color="#07823a"/>
+    </linearGradient>
+    <linearGradient id="texto-azul" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b56d0"/><stop offset="1" stop-color="#062f8a"/>
+    </linearGradient>
+    <linearGradient id="texto-verde" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#18b84a"/><stop offset="1" stop-color="#0a7a33"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Símbolo: dois "P" espelhados (par a par = P2P) ligados por um nó de
+       conexão, com uma trilha de circuito descendo. -->
+  <g id="simbolo" transform="translate(18 28) scale(2.05)">
+    <path fill="url(#azul)" fill-rule="evenodd"
+      d="M8 26 A12 12 0 0 1 20 14 H42 A34 34 0 0 1 42 82 H32 V94 A12 12 0 0 1 8 94 Z
+         M32 36 V60 H42 A12 12 0 0 0 42 36 Z"/>
+    <path fill="url(#verde)" fill-rule="evenodd"
+      d="M132 26 A12 12 0 0 0 120 14 H98 A34 34 0 0 0 98 82 H108 V94 A12 12 0 0 0 132 94 Z
+         M108 36 V60 H98 A12 12 0 0 1 98 36 Z"/>
+    <path id="trilha" d="M70 62 V88" stroke="#0736a6" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="70" cy="96" r="7" fill="url(#verde)"/>
+    <circle id="no" cx="70" cy="48" r="14" fill="#fff" stroke="#062f8a" stroke-width="6"/>
+    <circle cx="70" cy="48" r="5.5" fill="url(#verde)"/>
+  </g>
+
+  <g id="textos">
+    <text x="330" y="180" class="nome"><tspan id="t1" fill="url(#texto-azul)">P2P</tspan><tspan id="t2" dx="18" fill="url(#texto-verde)">Corp</tspan></text>
+    <text id="t3" x="336" y="240" class="slogan" fill="#0838a8">TECNOLOGIA QUE CONECTA</text>
+  </g>
+</svg>
+<script>
+  // #branco = versão para fundo escuro; #simbolo = só o símbolo (quadrado).
+  const modo = location.hash.slice(1), $ = (id) => document.getElementById(id), svg = $("logo");
+  if (modo === "branco") {
+    $("t1").setAttribute("fill", "#ffffff"); $("t2").setAttribute("fill", "#4ade6b"); $("t3").setAttribute("fill", "#cfe0ff");
+    $("trilha").setAttribute("stroke", "#cfe0ff"); $("no").setAttribute("stroke", "#ffffff"); $("no").setAttribute("fill", "#0b1f45");
+  }
+  if (modo === "simbolo") {
+    $("textos").remove(); svg.setAttribute("width", "300"); svg.setAttribute("height", "300");
+    svg.setAttribute("viewBox", "0 0 140 140"); $("simbolo").setAttribute("transform", "translate(0 12)");
+  }
+</script>
+</body></html>
