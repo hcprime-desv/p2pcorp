@@ -20,7 +20,15 @@ export const IMAGENS_MODELO = {
   logo_rodape: "/images/logo-p2pcorp-branco.png",
   favicon: "/images/simbolo-p2pcorp.png",
   banner: "/images/banner-p2pcorp.jpg",
+  // AppCreator (solução, seção da home e notícia)
+  appcreator_cabecalho: "/images/appcreator-cabecalho.jpg",
+  appcreator_banner: "/images/appcreator-banner.jpg",
+  appcreator_construtor: "/images/appcreator-construtor-ao-vivo.jpg",
+  appcreator_tipos: "/images/appcreator-novo-sistema-tipos.jpg",
+  appcreator_dashboard: "/images/appcreator-app-dashboard.jpg",
 };
+
+const SITE_APPCREATOR = "https://appcreator.p2pcorp.com.br";
 
 // Contato padrão da carga de TESTE (P2P Corp): configuração do site e, na
 // carga do núcleo (seedDados.ts), lotação e central do atendimento.
@@ -97,7 +105,7 @@ export const SECOES_MODELO = [
   }),
   secao("inicio", 2, {
     tipo: "numeros",
-    itens: ["12 | soluções prontas para uso | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA no WhatsApp | bot", "7 dias | para implantar o omnichannel | rocket"].join(NL),
+    itens: ["13 | soluções prontas para uso | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA no WhatsApp | bot", "7 dias | para implantar o omnichannel | rocket"].join(NL),
   }),
   secao("inicio", 3, {
     tipo: "solucoes", ancora: "solucoes", chamada: "Portfólio", titulo: "Nossas soluções",
@@ -125,8 +133,14 @@ export const SECOES_MODELO = [
     botao_texto: "Conheça o HcConecta", botao_link: "/hcconecta", botao2_texto: "Testar o Agente IA", botao2_link: "chat", imagem_lado: "direita",
   }),
   secao("inicio", 6, {
+    tipo: "texto_imagem", ancora: "appcreator", fundo: "suave", chamada: "Novo • Sistemas em blocos com IA", titulo: "O sistema que a sua empresa precisa,", titulo_destaque: "sem programar.",
+    texto: "Com o **AppCreator** você monta cadastros, painéis e relatórios arrastando blocos — ou descreve o que precisa e a IA monta para você. Publique na web ou como programa para Windows.",
+    itens: ["Construtor visual com pré-visualização ao vivo", "IA que cria e ajusta o sistema a partir de uma descrição", "Sites prontos com área administrativa", "Abra e modernize sistemas que você já tem"].join(NL),
+    imagem: IMAGENS_MODELO.appcreator_construtor, imagem_lado: "esquerda",
+    botao_texto: "Conheça o AppCreator", botao_link: "/solucoes/appcreator", botao2_texto: "Acessar agora", botao2_link: SITE_APPCREATOR,
+  }),
+  secao("inicio", 7, {
     tipo: "cards", ancora: "diferenciais", chamada: "Por que a P2P Corp", titulo: "Tecnologia de ponta com DNA amazônico",
-    fundo: "suave",
     itens: [
       "Alta disponibilidade | Infraestrutura em nuvem redundante e de baixa latência. | server",
       "Humano + IA | Equipe especializada trabalhando junto com o Agente IA. | users",
@@ -138,10 +152,10 @@ export const SECOES_MODELO = [
       "Suporte local | Atendimento de Manaus para todo o Brasil. | map-pin",
     ].join(NL),
   }),
-  secao("inicio", 7, { tipo: "parceiros", ancora: "clientes", chamada: "Confiança", titulo: "Quem trabalha com a gente" }),
-  secao("inicio", 8, { tipo: "noticias", ancora: "noticias", chamada: "Novidades", titulo: "Últimas notícias", botao_texto: "Ver todas", botao_link: "/noticias" }),
-  secao("inicio", 9, { tipo: "faq", ancora: "ajuda", chamada: "Ajuda", titulo: "Perguntas frequentes", fundo: "suave" }),
-  secao("inicio", 10, {
+  secao("inicio", 8, { tipo: "parceiros", ancora: "clientes", chamada: "Confiança", titulo: "Quem trabalha com a gente" }),
+  secao("inicio", 9, { tipo: "noticias", ancora: "noticias", chamada: "Novidades", titulo: "Últimas notícias", botao_texto: "Ver todas", botao_link: "/noticias" }),
+  secao("inicio", 10, { tipo: "faq", ancora: "ajuda", chamada: "Ajuda", titulo: "Perguntas frequentes", fundo: "suave" }),
+  secao("inicio", 11, {
     tipo: "cta", chamada: "Vamos conversar?", titulo: "Leve tecnologia de verdade para o seu órgão ou empresa.",
     texto: "Conte o seu desafio: a nossa equipe monta uma demonstração com a solução certa para você.",
     botao_texto: "Pedir uma proposta", botao_link: "/contato", botao2_texto: "Falar agora no chat", botao2_link: "chat", fundo: "destaque",
@@ -156,7 +170,7 @@ export const SECOES_MODELO = [
       "Valores | Transparência, segurança da informação, inovação e compromisso com o resultado. | award",
     ].join(NL),
   }),
-  secao("sobre", 2, { tipo: "numeros", fundo: "suave", itens: ["12 | soluções no portfólio | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA | bot", "Manaus/AM | matriz e suporte | map-pin"].join(NL) }),
+  secao("sobre", 2, { tipo: "numeros", fundo: "suave", itens: ["13 | soluções no portfólio | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA | bot", "Manaus/AM | matriz e suporte | map-pin"].join(NL) }),
   secao("sobre", 3, { tipo: "cta", titulo: "Quer conhecer a P2P Corp de perto?", texto: "Agende uma apresentação com a nossa equipe.", botao_texto: "Fale com a gente", botao_link: "/contato", fundo: "destaque" }),
 
   // ── Setor público ─────────────────────────────────────────────────────
@@ -172,6 +186,7 @@ export const SECOES_MODELO = [
       "Trabalho, emprego e SINE | Emprega Mais: vagas, candidatos e cursos. | briefcase | /solucoes/emprega-mais",
       "Ouvidorias e centrais do cidadão | HcConecta: WhatsApp, chat, e-mail e voz com Agente IA. | headset | /solucoes/hcconecta",
       "Pesquisas de campo | Pesquisa 360: questionários no app, mesmo sem internet. | clipboard-check | /solucoes/pesquisa-360",
+      "Equipes de TI e inovação | AppCreator: sistemas próprios montados em blocos, com IA. | layers | /solucoes/appcreator",
     ].join(NL),
   }),
   secao("setor-publico", 2, {
@@ -195,6 +210,42 @@ export const SECOES_MODELO = [
   }),
   secao("hcconecta", 2, { tipo: "chat", fundo: "suave", chamada: "Experimente", titulo: "Converse com a nossa central agora", texto: "Este chat cai na mesma central que os nossos clientes usam." }),
   secao("hcconecta", 3, { tipo: "cta", titulo: "Seu omnichannel no ar em até 7 dias.", botao_texto: "Quero contratar", botao_link: "/contato", fundo: "destaque" }),
+
+  // ── AppCreator (seções da página /solucoes/appcreator) ────────────────
+  secao("solucao-appcreator", 1, {
+    tipo: "texto_imagem", chamada: "Construtor visual", titulo: "Arraste, ligue e", titulo_destaque: "veja funcionando.",
+    texto: "Cada bloco é uma parte do sistema. Ligue o menu aos cadastros, os cadastros ao painel e ao relatório — e o sistema aparece ao lado, pronto para testar.",
+    itens: ["Blocos de menu, cadastro, dashboard e relatório", "Campos com validação e máscara (CPF, CNPJ, telefone, placa…)", "Revisão automática aponta o que falta antes de publicar", "Catálogo com os componentes prontos e os próximos que chegam"].join(NL),
+    imagem: IMAGENS_MODELO.appcreator_construtor,
+  }),
+  secao("solucao-appcreator", 2, {
+    tipo: "texto_imagem", fundo: "suave", chamada: "Novo sistema", titulo: "Site, aplicação web ou", titulo_destaque: "programa para Windows.",
+    texto: "Comece pelo tipo de entrega. O site já vem com a área administrativa para editar páginas, notícias, perguntas frequentes e o formulário de contato — um sistema só.",
+    itens: ["Site estático: publica em qualquer hospedagem", "Site Node: com servidor, melhor para o Google", "Aplicação web: gestão montada com blocos, usada no navegador", "Aplicação para Windows: instalador próprio, abre mesmo sem o site no ar"].join(NL),
+    imagem: IMAGENS_MODELO.appcreator_tipos, imagem_lado: "esquerda",
+  }),
+  secao("solucao-appcreator", 3, {
+    tipo: "cards", chamada: "Inteligência artificial", titulo: "A IA trabalha junto com você",
+    itens: [
+      "Descreva e a IA monta | Conte o que o sistema precisa ter: ela cria os cadastros, o painel e o relatório. | sparkles",
+      "Ajuste com uma frase | “Acrescente o campo vencimento” — a mudança aparece no desenho para você conferir. | bot",
+      "Altere projetos de código | Abra a pasta de um sistema, peça a mudança e veja a diferença antes de aplicar. | file-text",
+      "Refaça sistemas antigos | Traga um sistema em outra linguagem: a IA o remonta com os nossos componentes. | recycle",
+      "Consumo sob controle | Cada plano tem a sua cota de pedidos à IA, com pacotes extras quando precisar. | bar-chart",
+      "Seus dados protegidos | A chave da IA fica só no servidor da P2P Corp, nunca no navegador. | lock",
+    ].join(NL),
+  }),
+  secao("solucao-appcreator", 4, {
+    tipo: "texto_imagem", fundo: "suave", chamada: "Pronto para usar", titulo: "Painéis e relatórios", titulo_destaque: "desde o primeiro dia.",
+    texto: "Indicadores coloridos, gráficos de barras, pizza e linha, filtros e relatórios para imprimir — montados a partir dos seus cadastros, sem escrever consultas.",
+    itens: ["Indicadores que filtram a lista com um clique", "Gráficos por situação, por pessoa ou por mês", "Importação de planilha Excel/CSV com conferência antes de gravar", "Perfis de acesso: cada pessoa vê só o que pode"].join(NL),
+    imagem: IMAGENS_MODELO.appcreator_dashboard,
+  }),
+  secao("solucao-appcreator", 5, {
+    tipo: "cta", fundo: "destaque", titulo: "Crie o primeiro sistema hoje.",
+    texto: "Entre no AppCreator e monte um sistema de exemplo em minutos — ou fale com a gente para uma demonstração.",
+    botao_texto: "Acessar o AppCreator", botao_link: SITE_APPCREATOR, botao2_texto: "Falar agora no chat", botao2_link: "chat",
+  }),
 
   // ── Contato ───────────────────────────────────────────────────────────
   secao("contato", 1, { tipo: "contato", titulo: "Fale com a P2P Corp", texto: "Atendimento comercial e suporte técnico. Responderemos o mais rápido possível." }),
@@ -358,9 +409,50 @@ export const SOLUCOES_MODELO = [
     recursos: ["Compras e cotações (RFQ)", "Gestão de fornecedores", "Custos e margens", "Gestão de resíduos"],
     conteudo: "",
   }),
+  solucao(13, {
+    nome: "AppCreator", slug: "appcreator", categoria: "Desenvolvimento de sistemas", icone: "layers", cor: "#1559C7",
+    chamada: "O sistema que a sua empresa precisa, sem programar",
+    resumo: "Cadastros, painéis e relatórios montados arrastando blocos — ou descritos para a IA. Publique na web ou como programa para Windows, crie sites com área administrativa e modernize sistemas que você já tem.",
+    publico: ["Empresas de qualquer porte", "Órgãos públicos e secretarias", "Software houses e consultorias", "Equipes de TI e inovação"],
+    recursos: [
+      "Construtor visual por blocos: menu, cadastro, dashboard e relatório",
+      "IA que monta o sistema a partir de uma descrição em português",
+      "Pré-visualização ao vivo, com dados de exemplo",
+      "Gráficos de barras, pizza e linha e importação de planilhas",
+      "Sites prontos (estático ou Node) já com área administrativa",
+      "Projetos de código: abra um sistema, peça mudanças à IA ou refaça um sistema antigo",
+      "Entrega na web ou como programa para Windows",
+      "Equipe com perfis de acesso, planos e consumo de IA sob controle",
+    ],
+    plataformas: ["Web", "Windows"], link_externo: SITE_APPCREATOR, imagem: IMAGENS_MODELO.appcreator_cabecalho,
+    conteudo: [
+      "## Como funciona",
+      "",
+      "1. **Escolha o que criar** — site estático, site Node, aplicação web ou aplicação para Windows.",
+      "2. **Monte ou descreva** — arraste os blocos e ligue um ao outro, ou conte para a IA o que o sistema precisa ter.",
+      "3. **Veja funcionando** — o sistema aparece ao lado do desenho, já com dados de exemplo para testar.",
+      "4. **Publique** — a sua equipe entra com login e perfil de acesso; todo sistema nasce com o usuário administrador `adm.<nome-do-sistema>`.",
+      "",
+      "Tudo o que o AppCreator gera usa os mesmos componentes das soluções da P2P Corp: telas de cadastro, painéis com indicadores, relatórios, atendimento e segurança já testados em produção.",
+    ].join(NL),
+  }),
 ];
 
 export const NOTICIAS_MODELO = [
+  {
+    titulo: "P2P Corp lança o AppCreator: sistemas em blocos, com IA", slug: "p2p-corp-lanca-appcreator", data_publicacao: "2026-10-26", categoria: "Lançamento",
+    resumo: "A nova plataforma monta cadastros, painéis, relatórios e sites arrastando blocos — ou a partir de uma descrição para a IA.",
+    conteudo: [
+      "A **P2P Corp** lança o **AppCreator**, plataforma para criar sistemas de gestão e sites sem programar.",
+      "",
+      "O usuário escolhe o tipo de entrega — site estático, site Node, aplicação web ou programa para Windows — e monta o sistema arrastando blocos de menu, cadastro, dashboard e relatório. Quem preferir pode descrever o sistema em português: a inteligência artificial monta o desenho, que aparece funcionando ao lado, com dados de exemplo.",
+      "",
+      "Os sites já nascem com a área administrativa, e a função **Projetos de código** permite abrir sistemas existentes para alterar com a ajuda da IA ou refazê-los com os componentes da P2P Corp.",
+      "",
+      "Conheça em [appcreator.p2pcorp.com.br](" + SITE_APPCREATOR + ") ou na página da solução: [AppCreator](/solucoes/appcreator).",
+    ].join(NL),
+    imagem: IMAGENS_MODELO.appcreator_banner, destaque: true, status: "publicado",
+  },
   {
     titulo: "P2P Corp lança o seu novo portal", slug: "novo-portal-p2p-corp", data_publicacao: "2026-10-22", categoria: "Institucional",
     resumo: "O novo site reúne todo o portfólio de soluções e o atendimento com a central em um só lugar.",

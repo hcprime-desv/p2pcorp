@@ -11,7 +11,8 @@ notícias, FAQ, avisos e o chat — vem do banco e é editado no **admSite**
 ## Dados
 - Firestore do ecossistema (mesmo projeto do admSite), em
   **`sites/{empresa}/<colecao>`** — `{empresa}` = `PORTAL_PATH` do `.env`
-  (hoje `p2pcorp`), o código da empresa em admSite → Configurações → Empresas
+  (hoje `p2pcorp`, em MINÚSCULAS — o Firestore diferencia; com `P2PCORP` o site lia uma pasta vazia e
+  mostrava só o conteúdo modelo, corrigido em 26/10/2026), o código da empresa em admSite → Configurações → Empresas
   (coleção raiz `sites`). Outra empresa = outra pasta `sites/<empresa>` e
   outra implantação deste site com outro `PORTAL_PATH`.
 - Coleções (nomes em `lib/siteinstitucional/regrasSite.ts → COLECOES_SITE`):
