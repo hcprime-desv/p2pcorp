@@ -18,6 +18,9 @@ export const COLECOES_SITE = {
   perguntas: "perguntas_frequentes",
   avisos: "avisos_site",
   leads: "leads_site",
+  // programas para baixar (ex.: appbuilder): versão, link, tamanho e SHA-256 — gravado pelo script de publicação do
+  // programa (AppBuilder: npm run publicar:instalador), mostrado pela seção "download"
+  downloads: "downloads_site",
 } as const;
 // Página "inicio" = a Home do site (as seções com pagina "inicio").
 export const PAGINA_INICIO = "inicio";
@@ -26,7 +29,7 @@ export const PAGINA_INICIO = "inicio";
 // Cada seção tem um TIPO, uma página (slug) e uma ordem. Os itens vão num
 // texto, uma linha por item, campos separados por "|" (ver lerItens).
 export const TIPOS_SECAO = [
-  "hero", "numeros", "cards", "solucoes", "texto_imagem", "texto", "parceiros", "noticias", "faq", "cta", "contato", "chat",
+  "hero", "numeros", "cards", "solucoes", "texto_imagem", "texto", "parceiros", "noticias", "faq", "cta", "contato", "chat", "download",
 ] as const;
 export type TipoSecao = (typeof TIPOS_SECAO)[number];
 export const ROTULOS_TIPO_SECAO: Record<TipoSecao, string> = {
@@ -42,6 +45,7 @@ export const ROTULOS_TIPO_SECAO: Record<TipoSecao, string> = {
   cta: "Chamada para ação",
   contato: "Contato (formulário + endereço)",
   chat: "Chat com a Central (embutido)",
+  download: "Download de programa (com pedido de chave de teste)",
 };
 // Como preencher "itens" em cada tipo (mostrado no painel).
 export const AJUDA_ITENS_SECAO: Partial<Record<TipoSecao, string>> = {
@@ -52,6 +56,7 @@ export const AJUDA_ITENS_SECAO: Partial<Record<TipoSecao, string>> = {
   solucoes: "Opcional — slugs das soluções a mostrar, um por linha (vazio = as marcadas 'Destaque na home')",
   parceiros: "Opcional — tipo a mostrar: cliente, parceiro ou certificacao (vazio = todos)",
   contato: "Assuntos do formulário, um por linha (vazio = os padrões)",
+  download: "1ª linha: código do programa (ex.: appbuilder — o mesmo da publicação). Linhas seguintes (opcional): passos extras da instalação, um por linha",
 };
 export const FUNDOS_SECAO = ["claro", "suave", "escuro", "destaque"] as const;
 export type FundoSecao = (typeof FUNDOS_SECAO)[number];
@@ -128,10 +133,11 @@ export const avisoNoAr = (a: { status?: string; inicio_em?: unknown; fim_em?: un
   a.status === "ativo" && (!a.inicio_em || ms(a.inicio_em) <= agora) && (!a.fim_em || ms(a.fim_em) > agora);
 
 // ── Interessados (leads_site) ────────────────────────────────────────────
-export const TIPOS_LEAD = ["contato", "proposta", "parceria", "trabalhe_conosco", "imprensa", "newsletter"] as const;
+export const TIPOS_LEAD = ["contato", "proposta", "parceria", "trabalhe_conosco", "imprensa", "newsletter", "chave_teste"] as const;
 export type TipoLead = (typeof TIPOS_LEAD)[number];
 export const ROTULOS_TIPO_LEAD: Record<TipoLead, string> = {
   contato: "Contato", proposta: "Pedido de proposta", parceria: "Parceria", trabalhe_conosco: "Trabalhe conosco", imprensa: "Imprensa", newsletter: "Newsletter",
+  chave_teste: "Pedido de chave de teste (download)",
 };
 export const STATUS_LEAD = ["novo", "em_contato", "convertido", "descartado"] as const;
 export const ROTULOS_STATUS_LEAD: Record<(typeof STATUS_LEAD)[number], string> = {

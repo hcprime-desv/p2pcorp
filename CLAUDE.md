@@ -90,3 +90,9 @@ notícias, FAQ, avisos e o chat — vem do banco e é editado no **admSite**
 
 Roda local: `npm run dev` (porta 3000). Produção: `npm run build` e
 `npm start` (ou `.next/standalone`).
+
+## Seção "download" (28/10/2026)
+`components/secoes/Download.tsx`: programa para baixar (lê ao vivo `sites/{empresa}/downloads_site/{codigo}`, gravado
+pelo script de publicação do programa — AppBuilder: `npm run publicar:instalador`; clique soma `downloads`) + formulário
+"Peça a sua chave de teste grátis" → `leads_site` tipo `chave_teste` (admSite → Interessados; a P2P Corp gera a chave no
+AppBuilder → Licenças e envia). Itens da seção: 1ª linha = código (ex.: appbuilder), demais = passos extras.

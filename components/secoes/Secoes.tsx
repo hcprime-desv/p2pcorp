@@ -18,6 +18,7 @@ import Markdown from "@/components/public/Markdown";
 import { linkWhatsapp } from "@/components/public/Footer";
 import { ChatPainel } from "@/components/chat/ChatCentral";
 import FormContato from "./FormContato";
+import Download from "./Download";
 import { ASSUNTOS_CONTATO_PADRAO, lerItens } from "@/lib/siteinstitucional/regrasSite";
 import { soDigitos } from "@/lib/validacoes";
 import type { Noticia, Secao, Solucao } from "@/types/conteudo";
@@ -407,7 +408,7 @@ function Chat({ s }: { s: Secao }) {
 
 const BLOCOS: Record<Secao["tipo"], (p: { s: Secao }) => React.ReactNode> = {
   hero: Hero, numeros: Numeros, cards: Cards, solucoes: Solucoes, texto_imagem: TextoImagem, texto: Texto,
-  parceiros: Parceiros, noticias: Noticias, faq: Faq, cta: Cta, contato: Contato, chat: Chat,
+  parceiros: Parceiros, noticias: Noticias, faq: Faq, cta: Cta, contato: Contato, chat: Chat, download: Download,
 };
 
 export default function Secoes({ pagina, inicial }: { pagina: string; inicial?: Secao[] }) {
