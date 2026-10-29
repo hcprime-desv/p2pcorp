@@ -31,6 +31,7 @@ next-env.d.ts
 
 # anotações locais de git (podem conter token)
 comandos_git.txt
+comandosGit.txt
 
 # estado local do Claude Code
 .claude/scheduled_tasks.lock
