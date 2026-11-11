@@ -37,6 +37,14 @@ export default function DetalheSolucao({ slug }: { slug: string }) {
         </div>
       </CabecalhoPagina>
 
+      {s.bannerUrl && (
+        <section className="section solucao-banner-sec">
+          <div className="container">
+            <img className="solucao-banner" src={s.bannerUrl} alt={`${s.nome} — ${s.chamada || s.categoria}`} loading="lazy" />
+          </div>
+        </section>
+      )}
+
       <section className="section">
         <div className="container solucao-grade">
           <div>

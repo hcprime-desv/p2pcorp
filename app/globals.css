@@ -556,6 +556,11 @@ html[data-tema="escuro"] .chat-launch-balao, html[data-tema="escuro"] .chat-laun
 .download-form-titulo { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; }
 html[data-tema="escuro"] .download-topo b { color: #fff; }
 
+
+/* Banner da solução (página Saiba mais) */
+.solucao-banner-sec { padding-bottom: 0; }
+.solucao-banner { display: block; width: 100%; height: auto; border-radius: 16px; box-shadow: 0 18px 50px rgba(6, 14, 36, .28); }
+
 /* >>> TEMA ESCURO AZUL (monorepo) — gerado por scripts/aplicar-tema-sites.py */
 /* ══ TEMA ESCURO AZUL dos SITES — o mesmo das aplicações web (dono, 10/11/2026) ══════════════════════════════════════
    FONTE ÚNICA no monorepo (packages/layout/src/sites/tema-escuro-azul.css). Os sites recebem este bloco no FIM do

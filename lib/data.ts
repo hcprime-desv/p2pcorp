@@ -76,7 +76,7 @@ const mapearSolucoes = (docs: any[]): Solucao[] => docs.filter((d) => publicado(
   .map((d) => ({
     id: d.id, nome: txt(d.nome), slug: txt(d.slug), categoria: txt(d.categoria, "Soluções"), chamada: txt(d.chamada), resumo: txt(d.resumo), conteudo: txt(d.conteudo),
     publico: lista(d.publico), recursos: lista(d.recursos), plataformas: lista(d.plataformas), icone: txt(d.icone, "layers"),
-    cor: HEX.test(d.cor) ? d.cor : "", imagemUrl: url(d.imagem), linkExterno: txt(d.link_externo), destaqueHome: d.destaque_home === true, ordem: num(d.ordem),
+    cor: HEX.test(d.cor) ? d.cor : "", imagemUrl: url(d.imagem), bannerUrl: url(d.banner), linkExterno: txt(d.link_externo), destaqueHome: d.destaque_home === true, ordem: num(d.ordem),
   })).sort(porOrdem);
 
 const mapearNoticias = (docs: any[]): Noticia[] => docs.filter((d) => publicado(d) && d.slug && d.titulo)

@@ -14,7 +14,7 @@ const nextConfig = {
   // "monorepo" — o output de `output: "standalone"` sai aninhado num
   // caminho absoluto gigante em vez de `.next/standalone/` direto.
   outputFileTracingRoot: __dirname,
-  // Tenant do site (dados/{path}) = `PORTAL_PATH` do .env. Repassado aqui
+  // Banco do site = NEXT_PUBLIC_SITE_PATH (caminho completo; lib/firebase/gen.ts). `PORTAL_PATH` = nome antigo, reserva. Repassado aqui
   // porque variável sem NEXT_PUBLIC_ não chega ao navegador (chat e dados ao
   // vivo rodam lá). Nomes de variáveis SEM o nome do projeto (decisão do
   // dono). Lido em lib/firebase/gen.ts. Mudou o valor: reinicie o

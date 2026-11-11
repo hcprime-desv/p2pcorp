@@ -31,13 +31,18 @@ function datasParaMillis(v: any): any {
 const gravar = (dados: any) => datasParaMillis(dados);
 const lido = (dados: any) => datasParaMillis(dados);
 
-export const TENANT_PATH = process.env.PORTAL_PATH || undefined;
+// Banco do site = NEXT_PUBLIC_SITE_PATH, caminho COMPLETO (ex.: sites/p2pcorp, dados/PORTAL181) — mesma convenção do _PATH dos
+// back-ends. Sem barra vale sites/<nome>. `PORTAL_PATH` (nome antigo) ainda vale como reserva até o deploy usar o nome novo.
+const CAMINHO_SITE = String(process.env.NEXT_PUBLIC_SITE_PATH || process.env.PORTAL_PATH || "").trim().replace(/^\/+|\/+$/g, "");
+export const BASE_SITE = !CAMINHO_SITE ? "" : CAMINHO_SITE.includes("/") ? CAMINHO_SITE : `sites/${CAMINHO_SITE}`;
+/** Nome do tenant (sem a raiz) */
+export const TENANT_PATH = BASE_SITE ? BASE_SITE.split("/").slice(1).join("/") : undefined;
 
 function caminhoTenant(): string {
   if (!TENANT_PATH) {
-    throw new Error("PORTAL_PATH não configurado — defina no .env o código da empresa (sites/<empresa>) antes de ler/gravar no Firestore.");
+    throw new Error("NEXT_PUBLIC_SITE_PATH não configurado — defina no .env o código da empresa (sites/<empresa>) antes de ler/gravar no Firestore.");
   }
-  return `sites/${TENANT_PATH}`;
+  return BASE_SITE;
 }
 const colRef = (colecao: string) => collection(db, `${caminhoTenant()}/${colecao}`);
 

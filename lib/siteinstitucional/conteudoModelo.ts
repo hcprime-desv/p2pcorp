@@ -308,8 +308,17 @@ export const PAGINAS_MODELO = [
   },
 ];
 
+/** Banner de cada solução (slug → arquivo em public/images/banners do admsite360; a Carga de Dados sobe para o Storage e grava
+ *  em `banner`). Os mesmos banners do chatbot comercial (gerador documentacao/apresentacao/fonte/banners-whatsapp.js). */
+export const BANNER_DA_SOLUCAO: Record<string, string> = {
+  hcconecta: "omnichannel", "ciope-cad": "ciope360", "disque-denuncia": "dd360", "edugestao-360": "edu360", "saude-360": "saude360",
+  viamob360: "viamob360", viafrota: "viafrota360", "ipem-4-0": "ipem360", "emprega-mais": "emprega360", "gestor-360": "gestor360",
+  "pesquisa-360": "pesquisa360", "hypercorp-360": "nexora360", appcreator: "appcreator", cerbero360: "cerbero360", hestia360: "hestia360",
+  atena360: "atena360", elpis360: "elpis360",
+};
+
 const solucao = (ordem: number, s: Record<string, any>) => ({
-  ordem, imagem: "", link_externo: "", destaque_home: true, status: "publicado", plataformas: ["Painel web", "App Android/iOS"], ...s,
+  ordem, imagem: "", banner: "", link_externo: "", destaque_home: true, status: "publicado", plataformas: ["Painel web", "App Android/iOS"], ...s,
 });
 
 export const SOLUCOES_MODELO = [

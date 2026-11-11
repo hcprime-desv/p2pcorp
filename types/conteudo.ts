@@ -25,7 +25,7 @@ export type Pagina = { id: string; titulo: string; slug: string; resumo: string;
 
 export type Solucao = {
   id: string; nome: string; slug: string; categoria: string; chamada: string; resumo: string; conteudo: string;
-  publico: string[]; recursos: string[]; plataformas: string[]; icone: string; cor: string; imagemUrl: string | null;
+  publico: string[]; recursos: string[]; plataformas: string[]; icone: string; cor: string; imagemUrl: string | null; bannerUrl: string | null;
   linkExterno: string; destaqueHome: boolean; ordem: number;
 };
 
