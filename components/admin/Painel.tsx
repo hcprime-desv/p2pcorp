@@ -25,10 +25,12 @@ export default function Painel() {
   const { sessao } = useAdmin();
   const icones = new Map(SITE_ADMIN.menu.flatMap((g) => g.itens.map((i) => [i.href, i.icone] as const)));
   const visiveis = SITE_ADMIN.cadastros.filter((c) => !c.unico && pode(sessao, c.permissao));
+  const Extra = SITE_ADMIN.PainelExtra;
   return (
     <>
+      {Extra && <Extra />}
       <p className="texto-mut" style={{ margin: 0 }}>
-        Conteúdo do site <b>{SITE_ADMIN.nome}</b>. O mesmo conteúdo também pode ser gerenciado pelo painel AdmSite360.
+        Tudo o que você salvar aqui aparece no site na mesma hora. O mesmo conteúdo também pode ser gerenciado pelo painel AdmSite360.
       </p>
       <div className="kpis">{visiveis.map((c) => <Cartao key={c.id} id={c.id} titulo={c.titulo} colecao={c.colecao} icone={icones.get(`/admin/${c.id}`)} />)}</div>
     </>

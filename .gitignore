@@ -35,3 +35,6 @@ comandosGit.txt
 
 # estado local do Claude Code
 .claude/scheduled_tasks.lock
+
+# teste do modelo de site do Builder360 (scripts/atualizar-modelo-site.py)
+.modelo-teste/

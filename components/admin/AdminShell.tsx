@@ -6,9 +6,31 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { ExternalLink, LogOut, Menu, Moon, Sun, X } from "lucide-react";
+import { ExternalLink, KeyRound, LogOut, Menu, Moon, Sun, X } from "lucide-react";
 import { entrar, lerSessao, pode, revalidarSessao, sair, type Sessao } from "@/lib/admin/sessao";
 import { SITE_ADMIN } from "@/lib/admin/site";
+import { ouvir } from "@/lib/admin/banco";
+
+// Marca do /admin: a fixa do site (SITE_ADMIN) ou, nos sites gerados, a da Configuração do site ao vivo (logo, logo para fundo
+// escuro e nome); sem logo, o nome em texto.
+type Marca = { nome: string; logo: string; logoBranco: string };
+function useMarca(): Marca {
+  const [m, setM] = useState<Marca>({ nome: SITE_ADMIN.nome, logo: SITE_ADMIN.logo, logoBranco: SITE_ADMIN.logoBranco });
+  useEffect(() => {
+    if (!SITE_ADMIN.marcaAoVivo) return;
+    try {
+      return ouvir("configuracoes_site", (docs) => {
+        const c = docs.find((d) => d.status === "ativo") ?? docs[0];
+        if (c) setM({ nome: c.nome_site || SITE_ADMIN.nome, logo: c.logo || SITE_ADMIN.logo, logoBranco: c.logo_rodape || c.logo || SITE_ADMIN.logoBranco });
+      });
+    } catch { /* banco não configurado */ }
+  }, []);
+  return m;
+}
+function Logo({ src, nome, className }: { src: string; nome: string; className?: string }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return src ? <img className={className} src={src} alt={nome} /> : <span className={`adm-nome-marca ${className ?? ""}`}>{nome}</span>;
+}
 
 type Ctx = { sessao: Sessao | null; avisar: (texto: string, erro?: boolean) => void; titulo: (t: string) => void };
 const AdminCtx = createContext<Ctx>({ sessao: null, avisar: () => {}, titulo: () => {} });
@@ -38,6 +60,7 @@ function BotaoTemaAdmin() {
 }
 
 function Login({ aoEntrar }: { aoEntrar: (s: Sessao) => void }) {
+  const marca = useMarca();
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
@@ -57,10 +80,8 @@ function Login({ aoEntrar }: { aoEntrar: (s: Sessao) => void }) {
   return (
     <div className="adm-login">
       <div className="card">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="logo adm-logo-claro" src={SITE_ADMIN.logo} alt={SITE_ADMIN.nome} />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="logo adm-logo-escuro" src={SITE_ADMIN.logoBranco} alt={SITE_ADMIN.nome} />
+        <Logo className="logo adm-logo-claro" src={marca.logo} nome={marca.nome} />
+        <Logo className="logo adm-logo-escuro" src={marca.logoBranco} nome={marca.nome} />
         <h1>Área restrita</h1>
         <p className="sub">Gerenciamento do conteúdo do site.</p>
         <form onSubmit={enviar}>
@@ -81,6 +102,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const [aberto, setAberto] = useState(false);
   const [tituloAtual, setTitulo] = useState("Painel");
   const [msg, setMsg] = useState<{ texto: string; erro: boolean } | null>(null);
+  const marca = useMarca();
 
   useEffect(() => {
     const s = lerSessao();
@@ -91,7 +113,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   useEffect(() => setAberto(false), [rota]);
 
   const avisar = useCallback((texto: string, erro = false) => setMsg({ texto, erro }), []);
-  const titulo = useCallback((t: string) => { setTitulo(t); document.title = `${t} | Admin ${SITE_ADMIN.nome}`; }, []);
+  const titulo = useCallback((t: string) => { setTitulo(t); document.title = `${t} | Admin ${marca.nome}`; }, [marca.nome]);
 
   if (sessao === undefined) return <div className="adm-login"><p className="texto-mut">Carregando...</p></div>;
   if (!sessao) return <Login aoEntrar={setSessao} />;
@@ -104,8 +126,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
         <div className={`adm-fundo${aberto ? " aberto" : ""}`} onClick={() => setAberto(false)} />
         <aside className={`adm-lado${aberto ? " aberto" : ""}`} aria-label="Menu do admin">
           <Link className="adm-marca" href="/admin">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={SITE_ADMIN.logoBranco} alt={SITE_ADMIN.nome} />
+            <Logo src={marca.logoBranco} nome={marca.nome} />
             <small>Área restrita</small>
           </Link>
           {menu.map((g) => (
@@ -115,6 +136,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             </div>
           ))}
           <div className="adm-rodape-lado">
+            <Link href="/admin/senha" className={ativo("/admin/senha") ? "ativo" : undefined}><KeyRound size={18} /> Trocar senha</Link>
             <a href="/" target="_blank" rel="noreferrer"><ExternalLink size={18} /> Ver o site</a>
             <button type="button" className="adm-item" onClick={() => { sair(); setSessao(null); }}><LogOut size={18} /> Sair</button>
           </div>

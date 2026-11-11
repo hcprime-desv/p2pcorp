@@ -3,7 +3,7 @@
 // <banco do site>/usuarios (e-mail ou login + senha PBKDF2, lib/admin/senhas = cópia do @hc/nucleo). Permissões =
 // as do usuário + as do grupo (`grupo.permissions`) + as do PERFIL (SITE_ADMIN.perfis); administrador ou nível "99" vê tudo.
 // As chaves são as do admsite360 (menu.site.*), então perfis e grupos criados lá valem aqui.
-import { conferirSenha, normalizarEmail } from "./senhas";
+import { BYTES_SALT, conferirSenha, gerarHashSenha, normalizarEmail, problemaSenhaUsuario } from "./senhas";
 import { alterar, criar, filtrar, lerDoc } from "./banco";
 import { SITE_ADMIN } from "./site";
 
@@ -52,7 +52,12 @@ async function montarSessao(u: any): Promise<Sessao> {
 export async function entrar(identificador: string, senha: string): Promise<{ ok: true; sessao: Sessao } | { ok: false; erro: string }> {
   const id = normalizarEmail(identificador);
   if (!id || !senha) return { ok: false, erro: "Informe o e-mail (ou login) e a senha." };
-  const u = (await filtrar("usuarios", "email", id))[0] ?? (await filtrar("usuarios", "login", id))[0];
+  let u = (await filtrar("usuarios", "email", id))[0] ?? (await filtrar("usuarios", "login", id))[0];
+  if (!u && SITE_ADMIN.colecaoUsuariosLegado) {
+    const r = await entrarLegado(id, senha);
+    if (r === "senha") return { ok: false, erro: "Senha incorreta." };
+    if (r) u = r;
+  }
   if (!u) return { ok: false, erro: "Usuário não encontrado. Verifique o e-mail ou login." };
   if (!u.senha_hash) return { ok: false, erro: "Este usuário ainda não tem senha. Peça ao administrador para definir a senha." };
   if (!(await conferirSenha(senha, u))) return { ok: false, erro: "Senha incorreta." };
@@ -93,4 +98,39 @@ export async function registrarAuditoria(s: Sessao | null, p: {
   } catch (erro) {
     console.error("Erro ao gravar a auditoria", erro);
   }
+}
+
+// ── Usuários ANTIGOS (sites gerados antes do kit: coleção usuarios_admin, senha "pbkdf2$<iterações>$<sal hex>$<hash hex>",
+// o sal usado como TEXTO) — conferidos aqui e COPIADOS para `usuarios` no formato do núcleo (vale também no admsite360).
+async function conferirLegado(senha: string, guardado: string): Promise<boolean> {
+  const [alg, it, sal, hash] = String(guardado || "").split("$");
+  if (alg !== "pbkdf2" || !sal || !hash) return false;
+  const chave = await crypto.subtle.importKey("raw", new TextEncoder().encode(senha), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode(sal), iterations: Number(it) }, chave, 256);
+  const calc = Array.from(new Uint8Array(bits), (b) => b.toString(16).padStart(2, "0")).join("");
+  return calc.length === hash.length && calc === hash.toLowerCase();
+}
+async function entrarLegado(login: string, senha: string): Promise<any | "senha" | null> {
+  const col = SITE_ADMIN.colecaoUsuariosLegado!;
+  const v = (await filtrar(col, "login", login).catch(() => []))[0];
+  if (!v || v.status === "inativo") return null;
+  if (!(await conferirLegado(senha, v.senha_hash))) return "senha";
+  const novo = {
+    nome: v.nome || login, login, email: null, perfil: "administrador", nivel: "99", status: "ativo", permissions: [], id_grupo: null,
+    ...(await gerarHashSenha(senha, crypto.getRandomValues(new Uint8Array(BYTES_SALT)))),
+  };
+  const idNovo = await criar("usuarios", novo);
+  await alterar(col, String(v.id), { migrado_para: idNovo }).catch(() => {});
+  return { id: idNovo, ...novo };
+}
+
+/** Troca a senha do próprio usuário (confere a atual). */
+export async function trocarSenha(s: Sessao, atual: string, nova: string): Promise<string | null> {
+  const u = await lerDoc("usuarios", s.id);
+  if (!u || !(await conferirSenha(atual, u))) return "Senha atual incorreta.";
+  const problema = problemaSenhaUsuario(nova);
+  if (problema) return problema;
+  await alterar("usuarios", s.id, await gerarHashSenha(nova, crypto.getRandomValues(new Uint8Array(BYTES_SALT))));
+  registrarAuditoria(s, { colecao: "usuarios", id_registro: s.id, acao: "alteracao", descricao: "Senha trocada no /admin" });
+  return null;
 }

@@ -711,6 +711,10 @@ html[data-tema="escuro"] .adm-form input, html[data-tema="escuro"] .adm-form sel
 html[data-tema="escuro"] .adm-barra input { color: var(--cor-texto-escuro, #bcd8ff); }
 html[data-tema="escuro"] .adm-form input::placeholder, html[data-tema="escuro"] .adm-barra input::placeholder { color: #6f93c6; }
 html[data-tema="escuro"] .adm-form select option { background: #0c2452; color: var(--cor-texto-escuro, #bcd8ff); }
+.adm-nome-marca { display: inline-block; font-weight: 800; font-size: 22px; color: #fff; }
+.adm-login .adm-nome-marca { color: var(--blue2); display: block; text-align: center; margin: 0 auto 8px; }
+html[data-tema="escuro"] .adm-login .adm-nome-marca { color: #fff; }
+.adm-aviso { background: color-mix(in srgb, var(--blue) 10%, transparent); border: 1px solid color-mix(in srgb, var(--blue) 35%, transparent); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; }
 /* <<< ADMIN DO SITE (monorepo) */
 
 /* >>> TEMA ESCURO AZUL (monorepo) — gerado por scripts/aplicar-tema-sites.py */
