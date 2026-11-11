@@ -49,6 +49,7 @@ export const CONFIGURACAO_MODELO = {
   cor_escura: "#0b1f3a",
   tema_site: "claro",
   tema_botao: true,
+  cor_texto_escuro: "#bcd8ff",
   razao_social: "P2P Corp LTDA",
   cnpj: CONTATO_MODELO.cnpj,
   email: CONTATO_MODELO.email,
@@ -105,7 +106,7 @@ export const SECOES_MODELO = [
   }),
   secao("inicio", 2, {
     tipo: "numeros",
-    itens: ["13 | soluções prontas para uso | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA no WhatsApp | bot", "7 dias | para implantar o omnichannel | rocket"].join(NL),
+    itens: ["17 | soluções prontas para uso | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA no WhatsApp | bot", "7 dias | para implantar o omnichannel | rocket"].join(NL),
   }),
   secao("inicio", 3, {
     tipo: "solucoes", ancora: "solucoes", chamada: "Portfólio", titulo: "Nossas soluções",
@@ -116,7 +117,7 @@ export const SECOES_MODELO = [
     tipo: "cards", ancora: "para-quem", chamada: "Para quem", titulo: "Soluções para cada área do setor público",
     texto: "Secretarias, autarquias e órgãos de controle usam a mesma base tecnológica, cada um com os seus módulos.",
     itens: [
-      "Segurança pública | Despacho de ocorrências, Disque Denúncia e inteligência para SSP, polícias, bombeiros e guardas. | shield | /solucoes/ciope-cad",
+      "Segurança pública | Cerbero360: operações e despacho, Disque Denúncia, delegacias, proteção à mulher e sistema prisional, integrados. | shield | /solucoes/cerbero360",
       "Educação | Gestão das escolas de ponta a ponta: pedidos, manutenção, patrimônio, alimentação e compras. | school | /solucoes/edugestao-360",
       "Saúde | Recepção, pulseiras NFC, centro de comando, enfermagem e higienização para hospitais e UPAs. | heart-pulse | /solucoes/saude-360",
       "Mobilidade urbana | Transporte por aplicativo com passageiro, motorista, fiscal e central de segurança. | car | /solucoes/viamob360",
@@ -170,14 +171,14 @@ export const SECOES_MODELO = [
       "Valores | Transparência, segurança da informação, inovação e compromisso com o resultado. | award",
     ].join(NL),
   }),
-  secao("sobre", 2, { tipo: "numeros", fundo: "suave", itens: ["13 | soluções no portfólio | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA | bot", "Manaus/AM | matriz e suporte | map-pin"].join(NL) }),
+  secao("sobre", 2, { tipo: "numeros", fundo: "suave", itens: ["17 | soluções no portfólio | layers", "Web + App | em cada solução | smartphone", "24/7 | Agente IA | bot", "Manaus/AM | matriz e suporte | map-pin"].join(NL) }),
   secao("sobre", 3, { tipo: "cta", titulo: "Quer conhecer a P2P Corp de perto?", texto: "Agende uma apresentação com a nossa equipe.", botao_texto: "Fale com a gente", botao_link: "/contato", fundo: "destaque" }),
 
   // ── Setor público ─────────────────────────────────────────────────────
   secao("setor-publico", 1, {
     tipo: "cards", chamada: "Por órgão", titulo: "Qual solução atende o seu órgão",
     itens: [
-      "Secretaria de Segurança, PM, Bombeiros, SAMU e Guarda | CIOPE CAD (despacho) e Disque Denúncia 181. | siren | /solucoes/ciope-cad",
+      "Secretaria de Segurança, PM, Bombeiros, SAMU e Guarda | Cerbero360: CIOPE360 (despacho), DD360 (Disque Denúncia), Héstia360 (delegacias), Atena360 (mulher) e Elpis360 (prisional). | siren | /solucoes/cerbero360",
       "Secretaria de Educação | EduGestão 360: escolas, manutenção, patrimônio, alimentação e compras. | graduation-cap | /solucoes/edugestao-360",
       "Secretaria de Saúde e hospitais | Saúde 360: recepção, pulseiras NFC, enfermagem e centro de comando. | hospital | /solucoes/saude-360",
       "Transporte e mobilidade | ViaMob360: transporte por app com regulação e fiscalização. | bus | /solucoes/viamob360",
@@ -435,6 +436,55 @@ export const SOLUCOES_MODELO = [
       "",
       "Tudo o que o AppCreator gera usa os mesmos componentes das soluções da P2P Corp: telas de cadastro, painéis com indicadores, relatórios, atendimento e segurança já testados em produção.",
     ].join(NL),
+  }),
+  // ── Cerbero360 — ecossistema de segurança pública (10/11/2026) ───────
+  solucao(14, {
+    nome: "Cerbero360", slug: "cerbero360", categoria: "Segurança pública", icone: "shield", cor: "#0b3b8c",
+    chamada: "O ecossistema integrado de segurança pública",
+    resumo: "CIOPE360, DD360, Héstia360, Atena360 e Elpis360 conversam entre si: o chamado vira ocorrência, a ocorrência vira prisão, a prisão vira custódia — e a vítima é avisada quando o agressor sai.",
+    publico: ["Secretarias de Segurança (SSP)", "Polícias Militar e Civil", "Administração penitenciária", "Rede de proteção à mulher"],
+    recursos: [
+      "CIOPE360 — operações e despacho de viaturas",
+      "DD360 — Disque Denúncia com roteiro por tipo de crime",
+      "Héstia360 — delegacias e carceragem",
+      "Atena360 — proteção à mulher e medidas protetivas",
+      "Elpis360 — sistema prisional e execução penal",
+      "Barramento de integração entre as soluções",
+      "WhatsApp, apps móveis e painéis para a gestão",
+    ],
+    plataformas: ["Painel web", "App Android/iOS", "WhatsApp", "Chat no site"],
+    conteudo: [
+      "## Como as soluções se ligam",
+      "",
+      "- **Atena360 → Héstia360**: o caso de violência contra a mulher segue para a delegacia, que registra o B.O. e devolve o número ao caso.",
+      "- **Héstia360 → Elpis360**: a transferência ao sistema prisional leva o prontuário do preso (integridade, pertences lacrados) e volta com a matrícula.",
+      "- **Elpis360 → Atena360**: alvará, transferência ou evasão do agressor alertam o caso da vítima na hora.",
+      "- **CIOPE360 e DD360**: chamados e denúncias pelo WhatsApp entram direto na fila da central, com localização.",
+    ].join(NL),
+  }),
+  solucao(15, {
+    nome: "Héstia360", slug: "hestia360", categoria: "Segurança pública", icone: "landmark", cor: "#b45309", destaque_home: false,
+    chamada: "Delegacias digitais, da entrada do preso ao plantão",
+    resumo: "Carceragem com prazo da audiência de custódia, entrada do preso com integridade e pertences, mapa de celas, rotina, passagem de plantão e atendimento ao cidadão pelo WhatsApp.",
+    publico: ["Polícia Civil", "Delegacias e centrais de flagrante"],
+    recursos: ["Entrada do preso (integridade, inventário, cela)", "Prazo da audiência de custódia com alertas", "Separação obrigatória nas celas", "Pertences com etiqueta QR", "Rotina, contagem e passagem de plantão", "Atendimento ao cidadão no WhatsApp", "Registros imutáveis e auditoria"],
+    plataformas: ["Painel web", "WhatsApp"], conteudo: "",
+  }),
+  solucao(16, {
+    nome: "Atena360", slug: "atena360", categoria: "Segurança pública", icone: "users", cor: "#be185d", destaque_home: false,
+    chamada: "Proteção à mulher de ponta a ponta",
+    resumo: "Pedido de ajuda, avaliação de risco, medida protetiva da montagem à intimação, Patrulha Maria da Penha, rede de proteção e alerta quando o agressor é solto — com os dados da vítima protegidos.",
+    publico: ["Delegacias da mulher", "Patrulha Maria da Penha", "Rede de proteção", "Secretarias da mulher"],
+    recursos: ["Relato único e avaliação de risco (FONAR)", "Medidas protetivas (Lei 11.340)", "Patrulha com roteiro por risco", "Descumprimento comunicado ao juiz e ao MP", "Rede de proteção", "Dados da vítima com acesso restrito e auditado"],
+    plataformas: ["Painel web", "WhatsApp"], conteudo: "",
+  }),
+  solucao(17, {
+    nome: "Elpis360", slug: "elpis360", categoria: "Segurança pública", icone: "lock", cor: "#4338ca", destaque_home: false,
+    chamada: "Gestão prisional e execução penal",
+    resumo: "Custódia e mapa de celas, movimentações, execução penal com cálculo de benefícios, disciplina, saúde, inteligência, portaria e visitas e a Central da Família pelo WhatsApp.",
+    publico: ["Secretarias de administração penitenciária", "Unidades prisionais"],
+    recursos: ["Custodiados, celas e movimentações", "Execução penal (progressão, livramento, remição)", "Disciplina e PAD", "Saúde com dado clínico restrito", "Inteligência (facções e vínculos)", "Portaria e visitas com carteirinha QR", "Central da Família no WhatsApp"],
+    plataformas: ["Painel web", "WhatsApp"], conteudo: "",
   }),
 ];
 

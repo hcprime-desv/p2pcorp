@@ -14,7 +14,7 @@ export function AoVivoProvider({ inicial, children }: { inicial: Conteudo; child
   useEffect(() => subscribeConteudo(setC), []);
   // Cores da Configuração do site sobrescrevem as variáveis do globals.css.
   const k = c.configuracao;
-  const tema = { ["--cor" as any]: k.corPrimaria, ["--destaque" as any]: k.corDestaque, ["--escura" as any]: k.corEscura } as React.CSSProperties;
+  const tema = { ["--cor" as any]: k.corPrimaria, ["--destaque" as any]: k.corDestaque, ["--escura" as any]: k.corEscura, ["--cor-texto-escuro" as any]: k.corTextoEscuro } as React.CSSProperties;
   return (
     <Contexto.Provider value={c}>
       <div style={tema} className="tema">{children}</div>

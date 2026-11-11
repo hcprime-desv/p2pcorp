@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Tipos conferidos no `pnpm typecheck` da raiz (tsconfig.typecheck.json): o next build dos sites React 19 acusa erro FALSO
+  // pelo @types/react 18 içado dos painéis (mesma solução do portal181 e do viamob — CLAUDE.md).
+  typescript: { ignoreBuildErrors: true },
   // SSR de verdade num servidor Node.js (`node server.js` a partir de
   // `.next/standalone`): cada acesso renderiza com o dado atual do Firestore
   // (SEO) e, no navegador, tudo segue em tempo real (onSnapshot — ver

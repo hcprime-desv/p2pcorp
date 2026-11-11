@@ -11,6 +11,26 @@ import {
 } from "firebase/firestore";
 import { db } from "./client";
 
+// Datas SEMPRE em milissegundos (regra do dono, 06/11/2026): Date/Timestamp
+// viram número ao gravar e ao ler — nada de Timestamp do Firebase no banco
+// (e o servidor só repassa dado simples aos componentes do navegador).
+function datasParaMillis(v: any): any {
+  if (v instanceof Date) return v.getTime();
+  if (Array.isArray(v)) return v.map(datasParaMillis);
+  if (v && typeof v === "object") {
+    if (typeof v.toMillis === "function") return v.toMillis();
+    if (typeof v.seconds === "number" && typeof v.nanoseconds === "number") return v.seconds * 1000 + Math.floor(v.nanoseconds / 1e6);
+    const proto = Object.getPrototypeOf(v);
+    if (proto !== Object.prototype && proto !== null) return v;
+    const saida: any = {};
+    for (const [k, x] of Object.entries(v)) saida[k] = datasParaMillis(x);
+    return saida;
+  }
+  return v;
+}
+const gravar = (dados: any) => datasParaMillis(dados);
+const lido = (dados: any) => datasParaMillis(dados);
+
 export const TENANT_PATH = process.env.PORTAL_PATH || undefined;
 
 function caminhoTenant(): string {
@@ -23,43 +43,43 @@ const colRef = (colecao: string) => collection(db, `${caminhoTenant()}/${colecao
 
 // Listener em tempo real de uma coleção inteira — mesmo formato do `getAll` do admSite.
 export function getAll(colecao: string, callback: (docs: any[]) => void): Unsubscribe {
-  return onSnapshot(colRef(colecao), (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...d.data() }))),
+  return onSnapshot(colRef(colecao), (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...lido(d.data()) }))),
     (e) => console.error(`[site] listener de ${colecao} indisponível`, e)); // mantém o que já está na tela
 }
 
 export async function getAllOnce(colecao: string): Promise<any[]> {
   const snap = await getDocs(colRef(colecao));
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  return snap.docs.map((d) => ({ id: d.id, ...lido(d.data()) }));
 }
 
 export async function getDocOnce(colecao: string, id: string): Promise<any | null> {
   const snap = await getDoc(doc(colRef(colecao), id));
-  return snap.exists() ? { id: snap.id, ...snap.data() } : null;
+  return snap.exists() ? { id: snap.id, ...lido(snap.data()) } : null;
 }
 
 export function getDocOn(colecao: string, id: string, callback: (doc: any | null) => void): Unsubscribe {
-  return onSnapshot(doc(colRef(colecao), id), (snap) => callback(snap.exists() ? { id: snap.id, ...snap.data() } : null));
+  return onSnapshot(doc(colRef(colecao), id), (snap) => callback(snap.exists() ? { id: snap.id, ...lido(snap.data()) } : null));
 }
 
 // Listener filtrado por um campo (as mensagens de um chat). Sem orderBy de
 // propósito: evita índice composto — quem chama ordena.
 export function filtrarOn(colecao: string, campo: string, valor: any, callback: (docs: any[]) => void): Unsubscribe {
-  return onSnapshot(query(colRef(colecao), where(campo, "==", valor)), (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...d.data() }))));
+  return onSnapshot(query(colRef(colecao), where(campo, "==", valor)), (snap) => callback(snap.docs.map((d) => ({ id: d.id, ...lido(d.data()) }))));
 }
 
 // Grava com id escolhido, SEM carimbar datas (o OmniChannel usa `created_at` em ms).
 export async function gravarComId(colecao: string, id: string, dados: Record<string, any>, mesclar = false): Promise<void> {
-  await setDoc(doc(colRef(colecao), id), dados, { merge: mesclar });
+  await setDoc(doc(colRef(colecao), id), gravar(dados), { merge: mesclar });
 }
 
 export async function gravarNovo(colecao: string, dados: Record<string, any>): Promise<string> {
   const ref = doc(colRef(colecao));
-  await setDoc(ref, dados);
+  await setDoc(ref, gravar(dados));
   return ref.id;
 }
 
 export async function atualizar(colecao: string, id: string, dados: Record<string, any>): Promise<void> {
-  await updateDoc(doc(colRef(colecao), id), dados);
+  await updateDoc(doc(colRef(colecao), id), gravar(dados));
 }
 
 // Cria com id sequencial — mesma mecânica do `onSaveIncrement` do admSite
@@ -74,6 +94,6 @@ export async function criarComIdSequencial(colecao: string, data: Record<string,
     return String(proximo);
   });
   const agora = Date.now();
-  await setDoc(doc(colRef(colecao), id), { ...data, created_at: agora, updated_at: agora });
+  await setDoc(doc(colRef(colecao), id), gravar({ ...data, created_at: agora, updated_at: agora }));
   return id;
 }

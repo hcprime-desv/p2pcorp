@@ -8,6 +8,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, Minus, Paperclip, SendHorizontal, X } from "lucide-react";
 import Atendente from "./Atendente";
+import ChatMotor from "./ChatMotor";
+import { motorChat } from "@/lib/chatMotor";
 import { useConfiguracao } from "@/components/public/AoVivo";
 import {
   chatEncerrado, enviarMensagem, iniciarAtendimento, lerSessao, ouvirChat, ouvirMensagens, respostaInicial, salvarSessao,
@@ -164,6 +166,20 @@ function Entrada({ variante }: { variante: "janela" | "painel" }) {
 export function ChatFlutuante() {
   const { ativo, aberto, alternar, titulo } = useChat();
   if (!ativo) return null;
+  // MESMO MOTOR do WhatsApp (chatbot, blocos, fila e atendente), no desenho do celular e com a cor do site
+  if (motorChat) return (
+    <>
+      <button className="chat-launch" onClick={alternar} aria-label={aberto ? "Fechar chat" : `Abrir: ${titulo}`} aria-expanded={aberto}>
+        {!aberto && <span className="chat-launch-balao">{titulo}</span>}
+        {aberto ? <X size={24} /> : <MessageCircle size={24} />}
+      </button>
+      {aberto ? (
+        <div role="dialog" aria-label={titulo} style={{ position: "fixed", right: 20, bottom: 96, zIndex: 60, width: "min(380px, calc(100vw - 24px))" }}>
+          <ChatMotor motor={motorChat} corSite="var(--blue, #075fd7)" celular={{ nome: titulo, aoFechar: alternar, altura: 620 }} />
+        </div>
+      ) : null}
+    </>
+  );
   return (
     <>
       <button className="chat-launch" onClick={alternar} aria-label={aberto ? "Fechar chat" : `Abrir: ${titulo}`} aria-expanded={aberto}>
@@ -186,6 +202,11 @@ export function ChatFlutuante() {
 export function ChatPainel() {
   const { ativo, titulo } = useChat();
   if (!ativo) return null;
+  if (motorChat) return (
+    <div className="chat-painel" id="central" style={{ height: 560, display: "flex", flexDirection: "column", overflow: "hidden", padding: 0 }}>
+      <ChatMotor motor={motorChat} corSite="var(--blue, #075fd7)" />
+    </div>
+  );
   return (
     <div className="chat-painel" id="central">
       <div className="chat-painel-head">

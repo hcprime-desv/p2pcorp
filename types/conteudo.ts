@@ -6,7 +6,7 @@ export type Rede = { rede: "instagram" | "facebook" | "linkedin" | "youtube"; ur
 
 export type Configuracao = {
   nomeSite: string; slogan: string; logoUrl: string | null; logoRodapeUrl: string | null; faviconUrl: string | null;
-  corPrimaria: string; corDestaque: string; corEscura: string; tema: TemaSite; temaBotao: boolean;
+  corPrimaria: string; corDestaque: string; corEscura: string; corTextoEscuro: string; tema: TemaSite; temaBotao: boolean;
   razaoSocial: string; cnpj: string; email: string; telefone: string; whatsapp: string; endereco: string; horario: string;
   redes: Rede[]; textoRodape: string; copyright: string; seoTitulo: string; seoDescricao: string;
   botaoTopoTexto: string; botaoTopoLink: string;
