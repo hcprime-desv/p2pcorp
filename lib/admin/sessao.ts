@@ -6,6 +6,7 @@
 import { BYTES_SALT, conferirSenha, gerarHashSenha, normalizarEmail, problemaSenhaUsuario } from "./senhas";
 import { alterar, criar, filtrar, lerDoc } from "./banco";
 import { SITE_ADMIN } from "./site";
+import { problemaValidade } from "./validade";
 
 export type Sessao = { id: string; nome: string; login: string; admin: boolean; permissoes: string[]; expira: number };
 
@@ -63,6 +64,8 @@ export async function entrar(identificador: string, senha: string): Promise<{ ok
   if (!(await conferirSenha(senha, u))) return { ok: false, erro: "Senha incorreta." };
   if (u.status === "bloqueado") return { ok: false, erro: "Usuário bloqueado. Entre em contato com o administrador." };
   if (u.status !== "ativo") return { ok: false, erro: "Usuário desativado. Entre em contato com o administrador." };
+  const vencido = problemaValidade(u); // validade do usuário (perpétua ou por tempo)
+  if (vencido) return { ok: false, erro: vencido };
   const sessao = await montarSessao(u);
   gravarSessao(sessao);
   await alterar("usuarios", sessao.id, { ultimo_acesso_em: Date.now() }).catch(() => {});
@@ -74,7 +77,7 @@ export async function entrar(identificador: string, senha: string): Promise<{ ok
 export async function revalidarSessao(s: Sessao): Promise<Sessao | null> {
   const u = await lerDoc("usuarios", s.id).catch(() => undefined);
   if (u === undefined) return s; // sem rede: mantém
-  if (!u || u.status !== "ativo") { gravarSessao(null); return null; }
+  if (!u || u.status !== "ativo" || problemaValidade(u)) { gravarSessao(null); return null; }
   const nova = { ...(await montarSessao(u)), expira: s.expira };
   gravarSessao(nova);
   return nova;

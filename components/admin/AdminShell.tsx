@@ -4,11 +4,15 @@
 // /admin dos SITES — moldura: login (sem sessão), menu lateral com o que o usuário pode abrir, topo com o título, o
 // botão claro/escuro e o usuário, e o aviso flutuante. Marca, menu e cadastros vêm de lib/admin/site.tsx (SITE_ADMIN).
 import Link from "next/link";
+import { IBM_Plex_Sans } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { ExternalLink, KeyRound, LogOut, Menu, Moon, Sun, X } from "lucide-react";
 import { entrar, lerSessao, pode, revalidarSessao, sair, type Sessao } from "@/lib/admin/sessao";
 import { SITE_ADMIN } from "@/lib/admin/site";
+
+// Fonte das aplicações web (IBM Plex Sans): o /admin tem o mesmo visual dos painéis (admin-escuro-azul.css).
+const plex = IBM_Plex_Sans({ subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--fonte-admin", display: "swap" });
 import { ouvir } from "@/lib/admin/banco";
 
 // Marca do /admin: a fixa do site (SITE_ADMIN) ou, nos sites gerados, a da Configuração do site ao vivo (logo, logo para fundo
@@ -78,7 +82,7 @@ function Login({ aoEntrar }: { aoEntrar: (s: Sessao) => void }) {
     }
   };
   return (
-    <div className="adm-login">
+    <div className={`adm-login ${plex.variable}`}>
       <div className="card">
         <Logo className="logo adm-logo-claro" src={marca.logo} nome={marca.nome} />
         <Logo className="logo adm-logo-escuro" src={marca.logoBranco} nome={marca.nome} />
@@ -115,14 +119,14 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const avisar = useCallback((texto: string, erro = false) => setMsg({ texto, erro }), []);
   const titulo = useCallback((t: string) => { setTitulo(t); document.title = `${t} | Admin ${marca.nome}`; }, [marca.nome]);
 
-  if (sessao === undefined) return <div className="adm-login"><p className="texto-mut">Carregando...</p></div>;
+  if (sessao === undefined) return <div className={`adm-login ${plex.variable}`}><p className="texto-mut">Carregando...</p></div>;
   if (!sessao) return <Login aoEntrar={setSessao} />;
 
   const menu = SITE_ADMIN.menu.map((g) => ({ ...g, itens: g.itens.filter((i) => pode(sessao, i.permissao)) })).filter((g) => g.itens.length);
   const ativo = (href: string) => (href === "/admin" ? rota === "/admin" : rota === href || rota.startsWith(href + "/"));
   return (
     <AdminCtx.Provider value={{ sessao, avisar, titulo }}>
-      <div className="adm">
+      <div className={`adm ${plex.variable}`}>
         <div className={`adm-fundo${aberto ? " aberto" : ""}`} onClick={() => setAberto(false)} />
         <aside className={`adm-lado${aberto ? " aberto" : ""}`} aria-label="Menu do admin">
           <Link className="adm-marca" href="/admin">

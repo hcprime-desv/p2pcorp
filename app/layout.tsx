@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { configuracao: c } = await listarConteudo();
   return (
-    <html lang="pt-BR" className={`${titulo.variable} ${texto.variable}`} data-tema={c.tema === "escuro" ? "escuro" : "claro"} suppressHydrationWarning>
+    <html lang="pt-BR" className={`${titulo.variable} ${texto.variable}`} data-tema={c.tema === "claro" ? "claro" : "escuro"} suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: scriptTema(c.tema, c.temaBotao) }} /></head>
       <body>{children}</body>
     </html>

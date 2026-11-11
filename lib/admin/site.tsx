@@ -44,7 +44,7 @@ const CADASTROS: Cadastro[] = [
       { nome: "nome_site", rotulo: "Nome da empresa / site", tipo: "texto", obrigatorio: true, largura: 2 }, { nome: "slogan", rotulo: "Slogan", tipo: "texto" },
       { nome: "url_site", rotulo: "Endereço do site", tipo: "texto", largura: 2 }, status(STATUS_CAD, "ativo"),
       { nome: "cor_primaria", rotulo: "Cor principal", tipo: "cor" }, { nome: "cor_destaque", rotulo: "Cor de destaque", tipo: "cor" }, { nome: "cor_escura", rotulo: "Cor escura (topo, rodapé)", tipo: "cor" },
-      { nome: "tema_site", rotulo: "Tema do site", tipo: "select", padrao: "claro", opcoes: op(TEMAS_SITE, ROTULOS_TEMA_SITE) },
+      { nome: "tema_site", rotulo: "Tema do site", tipo: "select", padrao: "escuro", opcoes: op(TEMAS_SITE, ROTULOS_TEMA_SITE) },
       { nome: "tema_botao", rotulo: "Mostrar botão claro/escuro no topo", tipo: "check", padrao: true },
       { nome: "cor_texto_escuro", rotulo: "Cor das letras no modo escuro", tipo: "cor", placeholder: "#bcd8ff" },
       { nome: "logo", rotulo: "Logo (vazio = nome em texto)", tipo: "imagem" }, { nome: "logo_rodape", rotulo: "Logo para fundo escuro", tipo: "imagem" }, { nome: "favicon", rotulo: "Ícone da aba (favicon)", tipo: "imagem" },

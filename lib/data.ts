@@ -41,7 +41,7 @@ export function mapearConfiguracao(d: any): Configuracao {
     corDestaque: HEX.test(x.cor_destaque) ? x.cor_destaque : p.cor_destaque,
     corEscura: HEX.test(x.cor_escura) ? x.cor_escura : p.cor_escura,
     corTextoEscuro: HEX.test(x.cor_texto_escuro) ? x.cor_texto_escuro : (p as any).cor_texto_escuro ?? "#bcd8ff",
-    tema: (TEMAS_SITE as readonly string[]).includes(x.tema_site) ? x.tema_site : "claro", temaBotao: x.tema_botao !== false,
+    tema: (TEMAS_SITE as readonly string[]).includes(x.tema_site) ? x.tema_site : "escuro", temaBotao: x.tema_botao !== false,
     razaoSocial: txt(x.razao_social), cnpj: txt(x.cnpj), email: txt(x.email), telefone: txt(x.telefone), whatsapp: txt(x.whatsapp),
     endereco: txt(x.endereco), horario: txt(x.horario), redes,
     textoRodape: txt(x.texto_rodape), copyright: txt(x.copyright, txt(x.nome_site, p.nome_site)),

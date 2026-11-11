@@ -47,7 +47,7 @@ export const CONFIGURACAO_MODELO = {
   cor_primaria: "#0b5cd5",
   cor_destaque: "#12b886",
   cor_escura: "#0b1f3a",
-  tema_site: "claro",
+  tema_site: "escuro",
   tema_botao: true,
   cor_texto_escuro: "#bcd8ff",
   razao_social: "P2P Corp LTDA",
