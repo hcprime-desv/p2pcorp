@@ -1,0 +1,38 @@
+{
+ "site": "p2pcorp",
+ "capturado_em": "2026-11-13T00:44:37.044Z",
+ "telas": [
+  {
+   "rota": "/",
+   "titulo": "Soluções digitais que conectamgoverno, empresas e cidadãos.",
+   "descricao": "",
+   "h1": "Soluções digitais que conectamgoverno, empresas e cidadãos.",
+   "lead": "Atendimento omnichannel com Agente IA no WhatsApp, gestão operacional e aplicativos que funcionam até sem internet — prontos para o seu órgão ou a sua empresa, com a sua marca.",
+   "imagem": "imagens/manual-01-inicio.png"
+  },
+  {
+   "rota": "/noticias",
+   "titulo": "Notícias",
+   "descricao": "",
+   "h1": "Notícias",
+   "lead": "A nova plataforma monta cadastros, painéis, relatórios e sites arrastando blocos — ou a partir de uma descrição para a IA.",
+   "imagem": "imagens/manual-02-noticias.png"
+  },
+  {
+   "rota": "/solucoes",
+   "titulo": "Soluções",
+   "descricao": "",
+   "h1": "Soluções",
+   "lead": "Encontre a solução certa para o seu órgão ou a sua empresa.",
+   "imagem": "imagens/manual-03-solucoes.png"
+  },
+  {
+   "rota": "/admin",
+   "titulo": "Gerencie o conteúdodo seu site.",
+   "descricao": "",
+   "h1": "Gerencie o conteúdodo seu site.",
+   "lead": "",
+   "imagem": "imagens/manual-04-admin.png"
+  }
+ ]
+}
